@@ -1,5 +1,8 @@
 package scm.bulletin.board.system.bl.service.post.Impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +14,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import scm.bulletin.board.system.bl.dto.post.PostDTO;
 import scm.bulletin.board.system.bl.service.post.PostService;
@@ -51,6 +55,40 @@ public class PostServiceImpl implements PostService {
      */
     @Autowired
     private PostDAO postDAO;
+
+    /**
+     * <h2>doAddPost</h2>
+     * <p>
+     * Add Post
+     * </p>
+     * 
+     * @param postForm
+     * @param currentUserId
+     */
+    @Override
+    public void doAddPost(@Valid PostForm postForm, int currentUserId) {
+        Post post = new Post(postForm);
+        this.postDAO.dbAddPost(post, currentUserId, new Date());
+    }
+
+    /**
+     * <h2>doInsertTitleExist</h2>
+     * <p>
+     * Insert Title Is Exit or Not
+     * </p>
+     * 
+     * @param title
+     * @return
+     */
+    @Override
+    public boolean doInsertTitleExist(String title) {
+        Post resultPost = this.postDAO.dbGetPostByTitle(title);
+        boolean titleExist = false;
+        if (resultPost != null) {
+            titleExist = true;
+        }
+        return titleExist;
+    }
 
     /**
      * <h2>doGetPostList</h2>
@@ -99,23 +137,31 @@ public class PostServiceImpl implements PostService {
                 postDTOList.add(postDTO);
             }
         }
-
         return postDTOList;
     }
 
     /**
-     * <h2>doPostDelete</h2>
+     * <h2>doSearchPostList</h2>
      * <p>
-     * 
+     * SearchPostList
      * </p>
      * 
-     * @param postId
+     * @param postForm
+     * @param loginedUser
+     * @return
      */
     @Override
-    public void doPostDelete(Integer postId) {
-        Post postDeletedUser = this.postDAO.dbGetPostById(postId);
-        postDeletedUser.setDeletedAt(new Date());
+    public List<PostDTO> doSearchPostList(PostForm postForm, UserForm loginedUser) {
+        List<PostDTO> postDTOList = new ArrayList<PostDTO>();
+        List<Post> postList = this.postDAO.dbGetPostListBySearchData(loginedUser, postForm);
+        if (postList.size() > 0) {
+            for (Post post : postList) {
+                PostDTO postDTO = new PostDTO(post);
+                postDTOList.add(postDTO);
+            }
+        }
 
+        return postDTOList;
     }
 
     /**
@@ -170,10 +216,8 @@ public class PostServiceImpl implements PostService {
      */
     @Override
     public void doUpdatePost(@Valid PostForm postForm, UserForm currentUser) {
-        Post post=new Post(postForm);
-        if (currentUser.getType().equals("0")
-                || currentUser.getType().equals("1")) {
-            
+        Post post = new Post(postForm);
+        if (currentUser.getType().equals("0") || currentUser.getType().equals("1")) {
             Post updatePostById = this.postDAO.dbGetPostById(post.getId());
             Post postTitle = this.postDAO.dbGetPostByTitle(post.getTitle());
             if (updatePostById != null) {
@@ -184,37 +228,79 @@ public class PostServiceImpl implements PostService {
                     updatePostById.setUpdatedAt(new Date());
                     updatePostById.setCreatedUserId(currentUser.getId());
                 }
-
             }
             this.postDAO.dbUpdatePost(updatePostById);
         }
-
     }
 
     /**
-     * <h2> doInsertTitleExist </h2>
+     * <h2>doUploadCSV</h2>
      * <p>
-     * Insert Title Is Exit or Not
+     * 
      * </p>
      * 
-     * @param title
+     * @param uploadFile
+     * @param loginUserId
      * @return
+     * @throws IOException
      */
     @Override
-    public boolean doInsertTitleExist(String title) {
-     Post resultPost=this.postDAO.dbGetPostByTitle(title);
-     boolean titleExist =false;
-     if(resultPost !=null) {
-         titleExist=true;
-     }
-     return titleExist;
+    public List<String> doUploadCSV(MultipartFile uploadFile, int loginUserId) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(uploadFile.getInputStream()));
+        List<String> errorMsg = new ArrayList<String>();
+        int lineNumber = 1;
+        String[] data;
+        List<Post> postList = new ArrayList<Post>();
+        String line = br.readLine();
+        while (line != null) {
+            ++lineNumber;
+            Post post = new Post();
+            data = line.split(",");
+            if (data != null && data.length == 3) {
+                Post resultPostTitle = this.postDAO.dbGetPostByTitle(data[0]);
+                if (!data[0].equals("") && !data[0].isEmpty() && !data[0].equals(null) && resultPostTitle == null
+                        && !data[1].equals(null) && !data[1].equals("") && !data[1].isEmpty()
+                        && data[2].length() == 1) {
+                    post.setTitle(data[0]);
+                    post.setDescription(data[1]);
+                    Integer status = Integer.valueOf((!data[2].equals("0") && !data[2].equals("1") ? "1" : data[2]));
+                    post.setStatus(status);
+                    post.setCreatedUserId(loginUserId);
+                    post.setUpdatedUserId(loginUserId);
+                    post.setCreatedAt(new Date());
+                    post.setUpdatedAt(new Date());
+                    postList.add(post);
+                } else {
+                    if (resultPostTitle != null) {
+                        errorMsg.add("Post Title is Already Exist Error At Line " + lineNumber);
+                    }
+                    if (data[1].length() == 0) {
+                        errorMsg.add("Post Description is empty Error At Line" + lineNumber);
+                    }
+                }
+            } else if (data.length == 2 || data.length == 1 || data.length == 0) {
+                errorMsg.add("Error ! Not Contain Full Data of Post at Line" + lineNumber);
+            }
+            line = br.readLine();
+        }
+        for (Post postData : postList) {
+            this.postDAO.dbPostUploadData(postData);
+        }
+        return errorMsg;
     }
 
+    /**
+     * <h2>doPostDelete</h2>
+     * <p>
+     * Post Delete By ID
+     * </p>
+     * 
+     * @param postId
+     */
     @Override
-    public void doAddPost(@Valid PostForm postForm, int currentUserId) {
-        Post post=new Post(postForm);
-        this.postDAO.dbAddPost(post,currentUserId,new Date());
-       
-        
+    public void doPostDelete(Integer postId) {
+        Post postDeletedUser = this.postDAO.dbGetPostById(postId);
+        postDeletedUser.setDeletedAt(new Date());
+
     }
 }

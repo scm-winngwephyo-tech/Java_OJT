@@ -17,7 +17,7 @@ import scm.bulletin.board.system.web.form.user.UserForm;
  * @author WinNgwePhyo
  *
  */
-public interface UserDAO {
+public interface UserDAO  {
     /**
      * <h2>dbGetUserList</h2>
      * <p>

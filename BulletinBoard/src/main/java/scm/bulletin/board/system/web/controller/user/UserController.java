@@ -119,6 +119,21 @@ public class UserController {
     }
 
     /**
+     * <h2>calcelUserMain</h2>
+     * <p>
+     * Cancel User Adding
+     * </p>
+     *
+     * @return
+     * @return ModelAndView
+     */
+    @RequestMapping(value = "/createUserConfirm", params = "clearUserData", method = RequestMethod.POST)
+    public ModelAndView calcelUserMain() {
+        ModelAndView createUserView = new ModelAndView("redirect:/userList");
+        return createUserView;
+    }
+
+    /**
      * <h2>insertUser</h2>
      * <p>
      * Insert User Into Database
@@ -314,7 +329,7 @@ public class UserController {
      * @throws IOException
      * @return ModelAndView
      */
-    @RequestMapping(value = "/updateUserConfirm", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateUserConfirm", params = "updateUserConfirm", method = RequestMethod.POST)
     public ModelAndView callUpdateUserConfirm(@ModelAttribute("editedUserForm") @Valid UserForm updateUserForm,
             BindingResult result, HttpSession session, @RequestParam("imageData") String imageData)
             throws ParseException, IOException {
@@ -339,6 +354,21 @@ public class UserController {
             }
         }
         return updateConfirmView;
+    }
+
+    /**
+     * <h2> calcelUserUpdate</h2>
+     * <p>
+     * Cancel User Update
+     * </p>
+     *
+     * @return
+     * @return ModelAndView
+     */
+    @RequestMapping(value = "/updateUserConfirm", params = "cancelUser", method = RequestMethod.POST)
+    public ModelAndView calcelUserUpdate() {
+        ModelAndView createUserView = new ModelAndView("redirect:/userList");
+        return createUserView;
     }
 
     /**

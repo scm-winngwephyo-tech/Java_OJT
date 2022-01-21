@@ -49,8 +49,14 @@
                       class="slider round"></span>
                     </label>
                   </div>
-                  <button type="submit" class="btn btn-info">Update</button>
-                  <button type="reset" class="btn btn-secondary">Cancel</button>
+                  <c:if
+                    test="${(oldPostForm.status != 1 && LOGIN_USER.type == 0)||LOGIN_USER.type == 1}">
+                    <button type="submit" class="btn btn-info"
+                      name="update">Update</button>
+                  </c:if>
+                  <button type="submit" class="btn btn-secondary"
+                    name="cancel">Back</button>
+                  <button type="reset" class="btn btn-danger">Reset</button>
                 </div>
               </div>
             </form:form>

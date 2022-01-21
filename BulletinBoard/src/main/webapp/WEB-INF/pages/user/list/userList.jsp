@@ -91,7 +91,10 @@
                                 <a
                                   href="<c:url value='userDetail?id=${user.id}'/>"
                                   class="btn btn-info"><i
-                                  class="fas fa-eye"></i></a> <a href="#"
+                                  class="fas fa-eye"></i></a> <a
+                                  href="${pageContext.request.contextPath}/updateUser?id=${user.id}"
+                                  class="btn btn-secondary"><i
+                                  class="fas fa-edit"></i></a> <a href="#"
                                   data-toggle="modal"
                                   data-href="${pageContext.request.contextPath}/deleteUser?id=${user.id }"
                                   data-target="#myModal"

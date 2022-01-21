@@ -99,8 +99,10 @@
                   </div>
                   <button type="submit" class="btn btn-info"
                     name="confirmUser">Confirm</button>
-                  <button type="reset" class="btn btn-secondary"
-                    name="clearUser">Clear</button>
+                  <button type="submit" class="btn btn-secondary"
+                    name="clearUserData">Back</button>
+                  <button type="reset" class="btn btn-danger"
+                    name="clearUser">Reset</button>
                 </div>
               </div>
             </form:form>

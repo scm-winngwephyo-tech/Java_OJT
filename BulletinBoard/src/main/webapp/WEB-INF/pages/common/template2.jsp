@@ -33,6 +33,7 @@ response.addDateHeader("Expires", 0);
 <script src="<c:url value="/resources/js/adminlte.min.js"/>"></script>
 <%-- <script src="<c:url value="/resources/js/delete.js"/>"></script> --%>
 <script src="<c:url value="/resources/js/demo.js"/>"></script>
+<script src="<c:url value="/resources/js/common.js"/>"></script>
 <script type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet"

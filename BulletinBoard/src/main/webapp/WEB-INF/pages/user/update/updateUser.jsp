@@ -95,8 +95,9 @@
                         value="${oldUserForm.profile }" />
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-info">Update</button>
-                  <button type="reset" class="btn btn-secondary">Cancel</button>
+                  <button type="submit" class="btn btn-info" name="updateUserConfirm">Update</button>
+                   <button type="submit" class="btn btn-secondary" name ="cancelUser">Cancel</button>
+                      <button type="reset" class="btn btn-danger">Reset</button>
                 </div>
               </div>
             </form:form>

@@ -38,9 +38,12 @@
                   </div>
                   <button type="submit" class="btn btn-info"
                     name="confirmPost">Confirm</button>
-                  <button type="reset" class="btn btn-secondary"
-                    name="clearPost">Cancel</button>
+                  <button type="submit" class="btn btn-secondary"
+                    name="back">Back</button>
+                  <button type="reset" class="btn btn-danger"
+                    name="clearPost">Reset</button>
                 </div>
+
               </div>
             </form:form>
           </div>

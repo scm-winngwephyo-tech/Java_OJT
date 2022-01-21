@@ -10,7 +10,7 @@ import scm.bulletin.board.system.web.form.post.PostForm;
 import scm.bulletin.board.system.web.form.user.UserForm;
 
 /**
- * <h2> PostDAO Class</h2>
+ * <h2>PostDAO Class</h2>
  * <p>
  * Process for Displaying PostDAO
  * </p>
@@ -19,37 +19,21 @@ import scm.bulletin.board.system.web.form.user.UserForm;
  *
  */
 public interface PostDAO {
-
     /**
-     * <h2> dbGetPostList</h2>
+     * <h2>dbAddPost</h2>
      * <p>
-     * Get Post List By USer
+     * Add Post When Add Button Click
      * </p>
      *
-     * @param user
-     * @return
-     * @return List<Post>
+     * @param post
+     * @param currentUserId
+     * @param date
+     * @return void
      */
-
+    void dbAddPost(Post post, int currentUserId, Date date);
 
     /**
-     * <h2> dbGetPostListWithLimit</h2>
-     * <p>
-     * Search Limit For Pagination
-     * </p>
-     *
-     * @param currentPage
-     * @param recordsPerPage
-     * @param postForm
-     * @param loginuserForm
-     * @return
-     * @return List<Post>
-     */
-
-   // List<Post> dbgetAllPosts();
-
-    /**
-     * <h2> dbgetPostList</h2>
+     * <h2>dbgetPostList</h2>
      * <p>
      * 
      * </p>
@@ -61,7 +45,7 @@ public interface PostDAO {
     List<Post> dbgetPostList(User user);
 
     /**
-     * <h2> getPostListWithLimit</h2>
+     * <h2>getPostListWithLimit</h2>
      * <p>
      * 
      * </p>
@@ -76,7 +60,20 @@ public interface PostDAO {
     List<Post> doGetPostListWithLimit(int currentPage, int recordsPerPage, PostForm postForm, UserForm loginedUser);
 
     /**
-     * <h2> dbGetPostById</h2>
+     * <h2>getPostListBySearchData</h2>
+     * <p>
+     * 
+     * </p>
+     *
+     * @param loginedUser
+     * @param postForm
+     * @return
+     * @return List<Post>
+     */
+    List<Post> dbGetPostListBySearchData(UserForm loginedUser, PostForm postForm);
+
+    /**
+     * <h2>dbGetPostById</h2>
      * <p>
      * Get Post By Id
      * </p>
@@ -88,7 +85,7 @@ public interface PostDAO {
     Post dbGetPostById(Integer postId);
 
     /**
-     * <h2> dbUpdatePostExist</h2>
+     * <h2>dbUpdatePostExist</h2>
      * <p>
      * Update Post title is Exist or Not Exist
      * </p>
@@ -100,7 +97,7 @@ public interface PostDAO {
     List<Post> dbUpdatePostExist(String title);
 
     /**
-     * <h2> dbGetPostByTitle</h2>
+     * <h2>dbGetPostByTitle</h2>
      * <p>
      * Get Post By Title
      * </p>
@@ -112,7 +109,7 @@ public interface PostDAO {
     Post dbGetPostByTitle(String title);
 
     /**
-     * <h2> dbUpdatePost</h2>
+     * <h2>dbUpdatePost</h2>
      * <p>
      * Update Post
      * </p>
@@ -120,33 +117,18 @@ public interface PostDAO {
      * @param updatePostById
      * @return void
      */
-    
+
     void dbUpdatePost(Post updatePostById);
 
     /**
-     * <h2> dbAddPost</h2>
+     * <h2>dbPostUploadData</h2>
      * <p>
-     * Add Post When Add Button Click
+     * Upload Data For Post
      * </p>
      *
-     * @param post
-     * @param currentUserId
-     * @param date
+     * @param postData
      * @return void
      */
-    void dbAddPost(Post post, int currentUserId, Date date);
-
-    /**
-     * <h2> dbInsertPostTitle</h2>
-     * <p>
-     * INsert Post Title is Exist
-     * </p>
-     *
-     * @param title
-     * @return
-     * @return Post
-     */
-//    Post dbInsertPostTitle(String title);
-
+    void dbPostUploadData(Post postData);
 
 }

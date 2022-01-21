@@ -25,7 +25,7 @@ import scm.bulletin.board.system.persistence.entity.user.User;
  *
  */
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAO   {
     /**
      * <h2>SELECT_USER_HQL</h2>
      * <p>
@@ -167,6 +167,7 @@ public class UserDAOImpl implements UserDAO {
      * @param email
      * @return
      */
+    @SuppressWarnings("deprecation")
     @Override
     public List<User> dbUpdatedUserExistList(String email) {
         Query queryUser = this.sessionFactory.getCurrentSession().createQuery(SELECT_USER_BY_EMAIL_HQL);

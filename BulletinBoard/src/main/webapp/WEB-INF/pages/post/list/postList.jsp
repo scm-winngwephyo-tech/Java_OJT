@@ -18,12 +18,16 @@
                 <div class="search-sec">
                   <c:url var="addAction" value="/searchPost"></c:url>
                   <form:form action="${addAction}"
-                    modelAttribute="postList" method="post" id="form"
+                    modelAttribute="postForm" method="post" id="form"
                     class="searchForm-mr">
                     <label><input type="text"
                       class="form-control form-control-sm search-text-pd"
-                      aria-controls="example1" name="search-input"
-                      value="${searchData }"></label>
+                      aria-controls="example1" name="searchInput"
+                      placeholder="name" value="${searchData }"></label>
+                    <%--  <label><input type="text"
+                      class="form-control form-control-sm search-text-pd"
+                      aria-controls="example1" name="searchDescription"
+                      placeholder="description" value="${searchData }"></label> --%>
                     <input name="searchPost" type="submit"
                       value="Search" class="btn btn-secondary">
                     <a
@@ -33,7 +37,8 @@
                       href="${pageContext.request.contextPath}/uploadCSV"
                       class="btn btn-info">Upload</a>
                     <input type="submit" class="btn btn-info"
-                      value="Download" name="downloadExcel">
+                      value="Download" name="downloadExcel"
+                      onclick="downloadMsg()">
                   </form:form>
                 </div>
               </div>
@@ -93,7 +98,7 @@
             <ul class="pagination">
               <c:if test="${currentPage != 1}">
                 <li class="page-item"><a class="page-link"
-                  href="postList?recordsPerPage=${recordsPerPage}&currentPage=${currentPage - 1}">Previous</a>
+                  href="?recordsPerPage=${recordsPerPage}&currentPage=${currentPage - 1}&searchInput=${searchData }">Previous</a>
                 </li>
               </c:if>
               <c:forEach begin="1" end="${noOfPages }" var="i">
@@ -105,7 +110,7 @@
                   </c:when>
                   <c:otherwise>
                     <li class="page-item"><a class="page-link"
-                      href="postList?recordsPerPage=${recordsPerPage}&currentPage=${i}">
+                      href="?recordsPerPage=${recordsPerPage}&currentPage=${i}&searchInput=${searchData }">
                         ${i} </a></li>
                   </c:otherwise>
                 </c:choose>
@@ -113,7 +118,7 @@
 
               <c:if test="${currentPage lt noOfPages}">
                 <li class="page-item"><a class="page-link"
-                  href="postList?recordsPerPage=${recordsPerPage}&currentPage=${currentPage + 1}">Next</a>
+                  href="?recordsPerPage=${recordsPerPage}&currentPage=${currentPage + 1}&searchInput=${searchData }">Next</a>
                 </li>
               </c:if>
             </ul>
@@ -143,14 +148,19 @@
   </div>
 </div>
 <script>
-$('#myModal').on(
-	    'show.bs.modal',
-	    function (e) {
-	        $(this).find('.btn-ok').attr('href',
-	            $(e.relatedTarget).data('href'));
-	        $('.debug-url').html(
-	            'Delete URL: <strong>' +
-	            $(this).find('.btn-ok').attr('href') +
-	            '</strong>');
-	    });
+	$('#myModal').on(
+			'show.bs.modal',
+			function(e) {
+				$(this).find('.btn-ok').attr('href',
+						$(e.relatedTarget).data('href'));
+				$('.debug-url').html(
+						'Delete URL: <strong>'
+								+ $(this).find('.btn-ok').attr('href')
+								+ '</strong>');
+			});
+
+	function downloadMsg() {
+		alert("Download Successful")
+
+	}
 </script>

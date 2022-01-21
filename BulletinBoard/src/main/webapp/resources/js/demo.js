@@ -4,6 +4,30 @@
  * You should not use this file in production.
  * This file is for demo purposes only.
  */
+ 
+ $('#status-checked').click(function() {
+	alert("hello");
+	if ($(this).is(':checked')) {
+		$(".status-check").val(1);
+		alert($(".status-check").val());
+	}
+	else {
+		alert($(".status-check").val());
+		$(".status-check").val(0);
+	}
+});
+
+function getData() {
+	if ($('#status-checked').is(':checked')) {
+		$(".status-check").val(1);
+		alert($(".status-check").val());
+	}
+	else {
+		alert($(".status-check").val());
+		$(".status-check").val(0);
+	}
+}
+ 
 (function ($) {
   'use strict'
 
