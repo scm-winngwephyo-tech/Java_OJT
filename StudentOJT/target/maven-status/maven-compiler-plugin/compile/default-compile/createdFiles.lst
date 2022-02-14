@@ -1,0 +1,7 @@
+scm\ojt\system\persistence\entity\Student.class
+scm\ojt\system\persistence\dao\student\StudentDao.class
+scm\ojt\system\persistence\dao\student\Impl\StudentDaoImpl.class
+scm\ojt\system\bl\service\student\StudentService.class
+scm\ojt\system\bl\service\student\Impl\StudentServiceImpl.class
+scm\ojt\system\bl\dto\student\StudentDTO.class
+scm\ojt\system\web\controller\student\StudentController.class
