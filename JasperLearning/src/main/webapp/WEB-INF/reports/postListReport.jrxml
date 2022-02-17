@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee-rpt" pageWidth="1000" pageHeight="1000" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac1b9923-cbae-413b-ac70-b0cb81cff692">
+    <property name="ireport.zoom" value="2.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <parameter name="createdBy" class="java.lang.String"/>
+    <field name="id" class="java.lang.Integer"/>
+    <field name="title" class="java.lang.String"/>
+    <field name="description" class="java.lang.String"/>
+    <field name="status" class="java.lang.Integer"/>
+    <background>
+        <band height="400" splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="63" splitType="Stretch">
+            <staticText>
+                <reportElement x="320" y="0" width="310" height="29" uuid="69a70ea3-cb07-492b-b03f-d408f13d213f"/>
+                <textElement textAlignment="Center">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Post List]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="700" y="43" width="50" height="20" backcolor="#FFCCCC" uuid="761eb1da-5b99-40a7-98f6-f76c7f34853b"/>
+                <box>
+                    <pen lineWidth="0.1"/>
+                    <topPen lineWidth="0.1"/>
+                    <leftPen lineWidth="0.1"/>
+                    <bottomPen lineWidth="0.1"/>
+                    <rightPen lineWidth="0.1"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true" isItalic="false"/>
+                </textElement>
+                <text><![CDATA[Status]]></text>
+            </staticText>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="81" splitType="Stretch">
+            <staticText>
+                <reportElement mode="Opaque" x="40" y="-19" width="60" height="20" backcolor="#FFCCCC" uuid="fa24301a-919e-473b-8518-2fb9f280334c"/>
+                <box>
+                    <pen lineWidth="0.1"/>
+                    <topPen lineWidth="0.1"/>
+                    <leftPen lineWidth="0.1"/>
+                    <bottomPen lineWidth="0.1"/>
+                    <rightPen lineWidth="0.1"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true" isItalic="false"/>
+                </textElement>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="100" y="-19" width="200" height="20" backcolor="#FFCCCC" uuid="432132fd-dea1-447e-bc44-dc1067146361"/>
+                <box>
+                    <pen lineWidth="0.1"/>
+                    <topPen lineWidth="0.1"/>
+                    <leftPen lineWidth="0.1"/>
+                    <bottomPen lineWidth="0.1"/>
+                    <rightPen lineWidth="0.1"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true" isItalic="false"/>
+                </textElement>
+                <text><![CDATA[Title]]></text>
+            </staticText>
+            <staticText>
+                <reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" mode="Opaque" x="300" y="-19" width="400" height="20" backcolor="#FFCCCC" uuid="ec92b259-093f-449c-8592-439d577e620f"/>
+                <box>
+                    <pen lineWidth="0.1"/>
+                    <topPen lineWidth="0.1"/>
+                    <leftPen lineWidth="0.1"/>
+                    <bottomPen lineWidth="0.1"/>
+                    <rightPen lineWidth="0.1"/>
+                </box>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true" isItalic="false"/>
+                </textElement>
+                <text><![CDATA[Description]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20" splitType="Stretch">
+            <textField isStretchWithOverflow="true">
+                <reportElement x="40" y="-80" width="60" height="20" uuid="9334c407-f633-4a46-9b03-0868bbf06543"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="100" y="-80" width="200" height="20" uuid="fc32f3fb-808e-4fe1-af48-a6c5f0e15fab"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="300" y="-80" width="400" height="20" uuid="092b2e1e-da46-4f44-b1f8-63825c106ddf"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="700" y="-80" width="50" height="20" uuid="f87d7a29-006c-440e-b1f4-f2569e3213fd"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
